@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CyberStore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-gray-900 to-indigo-900 min-h-screen text-gray-100 flex items-center justify-center relative overflow-hidden">
+    
+    <!-- Efeitos de fundo animados -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    </div>
+    
+    <div class="w-full max-w-md p-8 relative z-10">
+        <div class="bg-gradient-to-br from-gray-800/95 to-gray-900/95 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-purple-500/30 relative overflow-hidden">
+            <!-- Efeito de brilho no topo -->
+            <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500"></div>
+            
+            <!-- Logo e Título -->
+            <div class="text-center mb-8">
+                <div class="inline-block p-4 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-2xl mb-4 transform hover:scale-110 transition duration-300">
+                    <h1 class="text-4xl font-bold text-white">🎮</h1>
+                </div>
+                <h1 class="text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent mb-2">Cyber Store</h1>
+                <h2 class="text-2xl font-semibold text-gray-100 mb-2">Bem-vindo de volta!</h2>
+                <p class="text-gray-400">Entre na sua conta para continuar</p>
+            </div>
+
+            <!-- Formulário de Login -->
+            <form id="loginForm" class="space-y-6">
+                <div class="relative">
+                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2">E-mail</label>
+                    <div class="relative">
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            required
+                            class="w-full px-4 py-3 pl-12 bg-gray-700/50 border-2 border-gray-600 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 text-gray-100 placeholder-gray-400 transition-all duration-300"
+                            placeholder="seu@email.com"
+                        >
+                        <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <label for="senha" class="block text-sm font-medium text-gray-300 mb-2">Senha</label>
+                    <div class="relative">
+                        <input 
+                            type="password" 
+                            id="senha" 
+                            name="senha" 
+                            required
+                            class="w-full px-4 py-3 pl-12 bg-gray-700/50 border-2 border-gray-600 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 text-gray-100 placeholder-gray-400 transition-all duration-300"
+                            placeholder="••••••••"
+                        >
+                        <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <div id="errorMessage" class="hidden bg-red-500/20 border border-red-500 text-red-300 px-4 py-3 rounded-lg text-sm"></div>
+                <div id="successMessage" class="hidden bg-green-500/20 border border-green-500 text-green-300 px-4 py-3 rounded-lg text-sm"></div>
+
+                <button 
+                    type="submit" 
+                    class="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-purple-700 hover:via-pink-700 hover:to-purple-700 text-white font-bold py-4 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/50 relative overflow-hidden group"
+                >
+                    <span class="relative z-10">Entrar</span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </button>
+            </form>
+
+            <!-- Link para Cadastro -->
+            <div class="mt-6 text-center">
+                <p class="text-gray-400">
+                    Não tem uma conta? 
+                    <a href="Cadastro.html" class="text-purple-500 hover:text-purple-400 transition duration-300 font-semibold" id="linkCadastro">
+                        Cadastre-se aqui
+                    </a>
+                </p>
+            </div>
+
+            <!-- Link para voltar -->
+            <div class="mt-4 text-center">
+                <a href="index.html" class="text-gray-400 hover:text-purple-500 transition duration-300 text-sm">
+                    ← Voltar para a página inicial
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = window.location.origin;
+
+        // Salvar página anterior para redirecionamento
+        const urlParams = new URLSearchParams(window.location.search);
+        const returnUrl = urlParams.get('return') || sessionStorage.getItem('returnUrl') || 'index.html';
+
+        // Preservar returnUrl ao navegar para cadastro
+        document.getElementById('linkCadastro').addEventListener('click', function(e) {
+            const returnUrl = urlParams.get('return') || sessionStorage.getItem('returnUrl') || 'index.html';
+            if (returnUrl !== 'index.html') {
+                this.href = 'Cadastro.html?return=' + encodeURIComponent(returnUrl);
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            
+            errorDiv.classList.add('hidden');
+            successDiv.classList.add('hidden');
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, senha })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Salvar token e dados do usuário
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('usuario', JSON.stringify(data.usuario));
+                    
+                    successDiv.textContent = 'Login realizado com sucesso! Um e-mail de confirmação foi enviado. Redirecionando...';
+                    successDiv.classList.remove('hidden');
+                    
+                    // Limpar returnUrl do sessionStorage
+                    sessionStorage.removeItem('returnUrl');
+                    
+                    // Redirecionar para a página anterior ou index
+                    setTimeout(() => {
+                        window.location.href = returnUrl;
+                    }, 1500);
+                } else {
+                    // Verificar se é erro de usuário não encontrado ou senha incorreta
+                    let mensagemErro = data.mensagem || 'Erro ao fazer login. Verifique suas credenciais.';
+                    
+                    // Se for erro de autenticação, sugerir cadastro
+                    if (response.status === 401) {
+                        mensagemErro = 'E-mail ou senha inválidos. Se você ainda não tem uma conta, <a href="Cadastro.html?return=' + encodeURIComponent(returnUrl) + '" class="text-purple-400 hover:text-purple-300 underline font-semibold">cadastre-se aqui</a>.';
+                        errorDiv.innerHTML = mensagemErro;
+                    } else {
+                        errorDiv.textContent = mensagemErro;
+                    }
+                    
+                    errorDiv.classList.remove('hidden');
+                }
+            } catch (error) {
+                errorDiv.textContent = 'Erro ao conectar com o servidor. Tente novamente.';
+                errorDiv.classList.remove('hidden');
+                console.error('Erro:', error);
+            }
+        });
+    </script>
+</body>
+</html>
+
