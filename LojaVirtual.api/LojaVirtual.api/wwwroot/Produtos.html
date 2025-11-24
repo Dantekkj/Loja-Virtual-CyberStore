@@ -1,0 +1,1061 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos - CyberStore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-gray-900 to-indigo-900 min-h-screen text-gray-100">
+
+    <!-- Cabeçalho -->
+    <header class="bg-gradient-to-r from-gray-800/80 to-gray-900/80 backdrop-blur-sm fixed w-full z-50 shadow-md">
+        <div class="container mx-auto flex justify-between items-center p-4">
+            <h1 class="text-2xl font-bold text-purple-500 animate-pulse"><a href="index.html">Cyber Store</a></h1>
+            <nav>
+                <ul class="flex space-x-6 items-center">
+                    <li><a href="index.html" class="hover:text-purple-500 transition duration-300">Início</a></li>
+                    <li><a href="Carrinho.html" class="hover:text-purple-500 transition duration-300">Carrinho</a></li>
+                    <!-- Botão de Login (quando não logado) -->
+                    <li id="loginButton" class="hidden">
+                        <a href="Login.html" class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition duration-300 ease-in-out">
+                            Login
+                        </a>
+                    </li>
+                    <!-- Menu do Usuário (quando logado) -->
+                    <li id="userMenu" class="hidden relative group">
+                        <div class="flex items-center space-x-2 cursor-pointer">
+                            <img id="userAvatar" src="" alt="Usuário" class="w-10 h-10 rounded-full border-2 border-purple-500">
+                            <span id="userName" class="text-gray-100"></span>
+                            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                        <div class="absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-xl border border-purple-500/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                            <a href="#" id="logoutButton" class="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-purple-400 rounded-lg transition">
+                                Sair
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="h-20"></div>
+
+    <!-- Hero Section -->
+    <section class="container mx-auto my-8 px-4">
+        <div class="text-center mb-8">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+                Nossos Produtos
+            </h2>
+            <p class="text-xl text-gray-300 mb-6">Explore nossa coleção completa de equipamentos gamer</p>
+            
+            <!-- Barra de Busca -->
+            <div class="max-w-2xl mx-auto">
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        id="campoBusca" 
+                        placeholder="Buscar produtos por nome, descrição..." 
+                        class="w-full bg-gray-800 border border-gray-700 text-gray-100 px-6 py-4 pl-12 rounded-xl focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/50 transition"
+                    >
+                    <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <button id="btnLimparBusca" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-purple-400 hidden">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 pb-16">
+        <div class="flex flex-col lg:flex-row gap-8">
+
+            <!-- Sidebar de Filtros -->
+            <aside class="lg:w-80 flex-shrink-0">
+                <div class="bg-gradient-to-br from-gray-800/95 to-gray-900/95 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-purple-500/30 sticky top-24 hover:border-purple-500/50 transition-all duration-300">
+
+                    <!-- Filtro de Preço com Range -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-purple-400 mb-4 flex items-center gap-2 bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+                            <svg class="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"></path>
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"></path>
+                            </svg>
+                            Faixa de Preço
+                        </h3>
+                        
+                        <!-- Range de Preço -->
+                        <div class="mb-4 space-y-4 p-4 bg-gray-700/30 rounded-xl border border-gray-600/30">
+                            <div class="flex items-center gap-3">
+                                <div class="flex-1">
+                                    <label class="block text-xs text-gray-300 mb-2 font-semibold">Preço Mínimo</label>
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm">R$</span>
+                                        <input type="number" id="precoMin" min="0" step="100" placeholder="0" 
+                                               class="w-full bg-gray-800/70 border border-gray-600 text-gray-100 px-3 pl-10 py-2.5 rounded-lg focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 transition text-sm font-medium">
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <label class="block text-xs text-gray-300 mb-2 font-semibold">Preço Máximo</label>
+                                    <div class="relative">
+                                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm">R$</span>
+                                        <input type="number" id="precoMax" min="0" step="100" placeholder="50000" 
+                                               class="w-full bg-gray-800/70 border border-gray-600 text-gray-100 px-3 pl-10 py-2.5 rounded-lg focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 transition text-sm font-medium">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 text-xs text-gray-400 pt-2 border-t border-gray-600/30">
+                                <span id="precoMinDisplay" class="text-purple-400 font-semibold">R$ 0</span>
+                                <span class="flex-1 h-px bg-gradient-to-r from-gray-600 via-purple-500/30 to-gray-600"></span>
+                                <span id="precoMaxDisplay" class="text-purple-400 font-semibold">R$ 50.000+</span>
+                            </div>
+                        </div>
+
+                        <!-- Faixas Rápidas -->
+                        <div class="space-y-2">
+                            <p class="text-xs text-gray-400 mb-3 font-semibold uppercase tracking-wide">Faixas Rápidas:</p>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button type="button" data-faixa="0-500" class="faixa-rapida group relative text-xs bg-gradient-to-br from-gray-700/60 to-gray-800/60 hover:from-purple-500/20 hover:to-purple-600/20 border border-gray-600/50 hover:border-purple-500/50 text-gray-300 hover:text-purple-300 px-3 py-2.5 rounded-xl transition-all duration-300 text-center font-medium shadow-sm hover:shadow-purple-500/20">
+                                    <span class="block">Até R$ 500</span>
+                                    <span class="block text-gray-500 group-hover:text-purple-400 text-[10px] mt-1 font-semibold" id="count-0-500">0</span>
+                                </button>
+                                <button type="button" data-faixa="500-1000" class="faixa-rapida group relative text-xs bg-gradient-to-br from-gray-700/60 to-gray-800/60 hover:from-purple-500/20 hover:to-purple-600/20 border border-gray-600/50 hover:border-purple-500/50 text-gray-300 hover:text-purple-300 px-3 py-2.5 rounded-xl transition-all duration-300 text-center font-medium shadow-sm hover:shadow-purple-500/20">
+                                    <span class="block">R$ 500-1K</span>
+                                    <span class="block text-gray-500 group-hover:text-purple-400 text-[10px] mt-1 font-semibold" id="count-500-1000">0</span>
+                                </button>
+                                <button type="button" data-faixa="1000-3000" class="faixa-rapida group relative text-xs bg-gradient-to-br from-gray-700/60 to-gray-800/60 hover:from-purple-500/20 hover:to-purple-600/20 border border-gray-600/50 hover:border-purple-500/50 text-gray-300 hover:text-purple-300 px-3 py-2.5 rounded-xl transition-all duration-300 text-center font-medium shadow-sm hover:shadow-purple-500/20">
+                                    <span class="block">R$ 1K-3K</span>
+                                    <span class="block text-gray-500 group-hover:text-purple-400 text-[10px] mt-1 font-semibold" id="count-1000-3000">0</span>
+                                </button>
+                                <button type="button" data-faixa="3000+" class="faixa-rapida group relative text-xs bg-gradient-to-br from-gray-700/60 to-gray-800/60 hover:from-purple-500/20 hover:to-purple-600/20 border border-gray-600/50 hover:border-purple-500/50 text-gray-300 hover:text-purple-300 px-3 py-2.5 rounded-xl transition-all duration-300 text-center font-medium shadow-sm hover:shadow-purple-500/20">
+                                    <span class="block">+R$ 3K</span>
+                                    <span class="block text-gray-500 group-hover:text-purple-400 text-[10px] mt-1 font-semibold" id="count-3000+">0</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-700/50 my-6"></div>
+
+                    <!-- Filtro de Estoque -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-purple-400 mb-4 flex items-center gap-2 bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+                            <svg class="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path>
+                            </svg>
+                            Disponibilidade
+                        </h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center gap-3 cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-green-500/10 hover:to-green-600/10 border border-gray-600/50 hover:border-green-500/50 transition-all duration-300 shadow-sm hover:shadow-green-500/20">
+                                <input type="checkbox" name="filtroEstoque" value="disponivel" checked class="w-5 h-5 accent-green-500 cursor-pointer">
+                                <span class="text-gray-300 group-hover:text-green-400 transition flex-1 font-semibold">Em Estoque</span>
+                                <span class="w-3 h-3 bg-green-400 rounded-full shadow-lg shadow-green-400/50 animate-pulse"></span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-red-500/10 hover:to-red-600/10 border border-gray-600/50 hover:border-red-500/50 transition-all duration-300 shadow-sm hover:shadow-red-500/20">
+                                <input type="checkbox" name="filtroEstoque" value="esgotado" class="w-5 h-5 accent-red-500 cursor-pointer">
+                                <span class="text-gray-300 group-hover:text-red-400 transition flex-1 font-semibold">Esgotado</span>
+                                <span class="w-3 h-3 bg-red-400 rounded-full shadow-lg shadow-red-400/50"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-700/50 my-6"></div>
+
+                    <!-- Filtro de Categoria -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-bold text-purple-400 mb-4 flex items-center gap-2 bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">
+                            <svg class="w-5 h-5 text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>
+                            </svg>
+                            Categorias
+                        </h3>
+                        <div class="space-y-2 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
+                            <label class="flex items-center justify-between cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-purple-500/15 hover:to-purple-600/15 border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 shadow-sm hover:shadow-purple-500/20">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" name="filtroCategoria" value="teclado" class="w-5 h-5 accent-purple-500 cursor-pointer">
+                                    <span class="text-gray-300 group-hover:text-purple-400 transition font-semibold">Teclados</span>
+                                </div>
+                                <span class="text-gray-400 group-hover:text-purple-400 text-xs bg-gray-800/70 group-hover:bg-purple-500/20 px-2.5 py-1 rounded-full font-semibold transition" id="count-teclado">0</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-purple-500/15 hover:to-purple-600/15 border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 shadow-sm hover:shadow-purple-500/20">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" name="filtroCategoria" value="mouse" class="w-5 h-5 accent-purple-500 cursor-pointer">
+                                    <span class="text-gray-300 group-hover:text-purple-400 transition font-semibold">Mouses</span>
+                                </div>
+                                <span class="text-gray-400 group-hover:text-purple-400 text-xs bg-gray-800/70 group-hover:bg-purple-500/20 px-2.5 py-1 rounded-full font-semibold transition" id="count-mouse">0</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-purple-500/15 hover:to-purple-600/15 border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 shadow-sm hover:shadow-purple-500/20">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" name="filtroCategoria" value="monitor" class="w-5 h-5 accent-purple-500 cursor-pointer">
+                                    <span class="text-gray-300 group-hover:text-purple-400 transition font-semibold">Monitores</span>
+                                </div>
+                                <span class="text-gray-400 group-hover:text-purple-400 text-xs bg-gray-800/70 group-hover:bg-purple-500/20 px-2.5 py-1 rounded-full font-semibold transition" id="count-monitor">0</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-purple-500/15 hover:to-purple-600/15 border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 shadow-sm hover:shadow-purple-500/20">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" name="filtroCategoria" value="pc" class="w-5 h-5 accent-purple-500 cursor-pointer">
+                                    <span class="text-gray-300 group-hover:text-purple-400 transition font-semibold">PCs Gamer</span>
+                                </div>
+                                <span class="text-gray-400 group-hover:text-purple-400 text-xs bg-gray-800/70 group-hover:bg-purple-500/20 px-2.5 py-1 rounded-full font-semibold transition" id="count-pc">0</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-purple-500/15 hover:to-purple-600/15 border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 shadow-sm hover:shadow-purple-500/20">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" name="filtroCategoria" value="headset" class="w-5 h-5 accent-purple-500 cursor-pointer">
+                                    <span class="text-gray-300 group-hover:text-purple-400 transition font-semibold">Headsets</span>
+                                </div>
+                                <span class="text-gray-400 group-hover:text-purple-400 text-xs bg-gray-800/70 group-hover:bg-purple-500/20 px-2.5 py-1 rounded-full font-semibold transition" id="count-headset">0</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-purple-500/15 hover:to-purple-600/15 border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 shadow-sm hover:shadow-purple-500/20">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" name="filtroCategoria" value="componente" class="w-5 h-5 accent-purple-500 cursor-pointer">
+                                    <span class="text-gray-300 group-hover:text-purple-400 transition font-semibold">Componentes</span>
+                                </div>
+                                <span class="text-gray-400 group-hover:text-purple-400 text-xs bg-gray-800/70 group-hover:bg-purple-500/20 px-2.5 py-1 rounded-full font-semibold transition" id="count-componente">0</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-purple-500/15 hover:to-purple-600/15 border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 shadow-sm hover:shadow-purple-500/20">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" name="filtroCategoria" value="processador" class="w-5 h-5 accent-purple-500 cursor-pointer">
+                                    <span class="text-gray-300 group-hover:text-purple-400 transition font-semibold">Processadores</span>
+                                </div>
+                                <span class="text-gray-400 group-hover:text-purple-400 text-xs bg-gray-800/70 group-hover:bg-purple-500/20 px-2.5 py-1 rounded-full font-semibold transition" id="count-processador">0</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-purple-500/15 hover:to-purple-600/15 border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 shadow-sm hover:shadow-purple-500/20">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" name="filtroCategoria" value="gpu" class="w-5 h-5 accent-purple-500 cursor-pointer">
+                                    <span class="text-gray-300 group-hover:text-purple-400 transition font-semibold">Placas de Vídeo</span>
+                                </div>
+                                <span class="text-gray-400 group-hover:text-purple-400 text-xs bg-gray-800/70 group-hover:bg-purple-500/20 px-2.5 py-1 rounded-full font-semibold transition" id="count-gpu">0</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-purple-500/15 hover:to-purple-600/15 border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 shadow-sm hover:shadow-purple-500/20">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" name="filtroCategoria" value="ram" class="w-5 h-5 accent-purple-500 cursor-pointer">
+                                    <span class="text-gray-300 group-hover:text-purple-400 transition font-semibold">Memórias RAM</span>
+                                </div>
+                                <span class="text-gray-400 group-hover:text-purple-400 text-xs bg-gray-800/70 group-hover:bg-purple-500/20 px-2.5 py-1 rounded-full font-semibold transition" id="count-ram">0</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-purple-500/15 hover:to-purple-600/15 border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 shadow-sm hover:shadow-purple-500/20">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" name="filtroCategoria" value="armazenamento" class="w-5 h-5 accent-purple-500 cursor-pointer">
+                                    <span class="text-gray-300 group-hover:text-purple-400 transition font-semibold">Armazenamento</span>
+                                </div>
+                                <span class="text-gray-400 group-hover:text-purple-400 text-xs bg-gray-800/70 group-hover:bg-purple-500/20 px-2.5 py-1 rounded-full font-semibold transition" id="count-armazenamento">0</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-purple-500/15 hover:to-purple-600/15 border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 shadow-sm hover:shadow-purple-500/20">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" name="filtroCategoria" value="placa-mae" class="w-5 h-5 accent-purple-500 cursor-pointer">
+                                    <span class="text-gray-300 group-hover:text-purple-400 transition font-semibold">Placas-Mãe</span>
+                                </div>
+                                <span class="text-gray-400 group-hover:text-purple-400 text-xs bg-gray-800/70 group-hover:bg-purple-500/20 px-2.5 py-1 rounded-full font-semibold transition" id="count-placa-mae">0</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-purple-500/15 hover:to-purple-600/15 border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 shadow-sm hover:shadow-purple-500/20">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" name="filtroCategoria" value="fonte" class="w-5 h-5 accent-purple-500 cursor-pointer">
+                                    <span class="text-gray-300 group-hover:text-purple-400 transition font-semibold">Fontes</span>
+                                </div>
+                                <span class="text-gray-400 group-hover:text-purple-400 text-xs bg-gray-800/70 group-hover:bg-purple-500/20 px-2.5 py-1 rounded-full font-semibold transition" id="count-fonte">0</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-purple-500/15 hover:to-purple-600/15 border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 shadow-sm hover:shadow-purple-500/20">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" name="filtroCategoria" value="gabinete" class="w-5 h-5 accent-purple-500 cursor-pointer">
+                                    <span class="text-gray-300 group-hover:text-purple-400 transition font-semibold">Gabinetes</span>
+                                </div>
+                                <span class="text-gray-400 group-hover:text-purple-400 text-xs bg-gray-800/70 group-hover:bg-purple-500/20 px-2.5 py-1 rounded-full font-semibold transition" id="count-gabinete">0</span>
+                            </label>
+                            <label class="flex items-center justify-between cursor-pointer group p-3.5 rounded-xl bg-gradient-to-br from-gray-700/40 to-gray-800/40 hover:from-purple-500/15 hover:to-purple-600/15 border border-gray-600/50 hover:border-purple-500/50 transition-all duration-300 shadow-sm hover:shadow-purple-500/20">
+                                <div class="flex items-center gap-3">
+                                    <input type="checkbox" name="filtroCategoria" value="cooler" class="w-5 h-5 accent-purple-500 cursor-pointer">
+                                    <span class="text-gray-300 group-hover:text-purple-400 transition font-semibold">Coolers</span>
+                                </div>
+                                <span class="text-gray-400 group-hover:text-purple-400 text-xs bg-gray-800/70 group-hover:bg-purple-500/20 px-2.5 py-1 rounded-full font-semibold transition" id="count-cooler">0</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Botão Limpar Filtros -->
+                    <button id="btnLimparFiltros" class="w-full mt-6 bg-gradient-to-r from-purple-500/20 to-purple-600/20 hover:from-purple-500 hover:to-purple-600 text-purple-400 hover:text-gray-900 py-3 rounded-xl transition duration-300 border border-purple-500/50 hover:border-purple-500 font-semibold flex items-center justify-center gap-2 shadow-lg hover:shadow-purple-500/30">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                        </svg>
+                        Limpar Filtros
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Grid de Produtos -->
+            <main class="flex-1">
+                <!-- Barra de Ordenação -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 bg-gray-800/50 p-4 rounded-xl border border-gray-700">
+                    <p class="text-gray-300"><span class="text-purple-400 font-bold" id="contadorProdutos">0</span> produtos encontrados</p>
+                    <select id="ordenacao" class="bg-gray-800 border border-gray-700 text-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:border-purple-500 transition">
+                        <option value="relevantes">Mais Relevantes</option>
+                        <option value="menor">Menor Preço</option>
+                        <option value="maior">Maior Preço</option>
+                        <option value="vendidos">Mais Vendidos</option>
+                        <option value="lancamentos">Lançamentos</option>
+                    </select>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loading" class="text-center py-12">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
+                    <p class="mt-4 text-gray-400">Carregando produtos...</p>
+                    </div>
+
+                <!-- Error State -->
+                <div id="error" class="hidden text-center py-12">
+                    <p class="text-red-400 text-lg">Erro ao carregar produtos. Verifique se a API está rodando.</p>
+                    <button onclick="carregarProdutos()" class="mt-4 bg-purple-500 hover:bg-purple-600 text-gray-900 font-bold py-2 px-4 rounded-lg transition duration-300">
+                        Tentar Novamente
+                                </button>
+                    </div>
+
+                <!-- Grid de Produtos -->
+                <div id="gridProdutos" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+
+
+                </div>
+
+                <!-- Paginação -->
+                <div id="paginacao" class="flex justify-center items-center gap-2 mt-12">
+                    <!-- Será preenchido dinamicamente -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-gray-400 py-8 mt-10">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
+            <div>
+                <h4 class="font-bold text-gray-100 mb-2">Cyber Store</h4>
+                <p>Todos os direitos reservados © 2025</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-gray-100 mb-2">Links</h4>
+                <ul>
+                    <li><a href="index.html" class="hover:text-purple-500 transition duration-300">Início</a></li>
+                    <li><a href="#" class="hover:text-purple-500 transition duration-300">Produtos</a></li>
+                    <li><a href="#" class="hover:text-purple-500 transition duration-300">Promoções</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-gray-100 mb-2">Contato</h4>
+                <p>Email: SuporteCyber@gmail.com</p>
+                <p>Telefone: (14) 99999-9999</p>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(55, 65, 81, 0.5);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(147, 51, 234, 0.5);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(147, 51, 234, 0.8);
+        }
+        .faixa-rapida.active {
+            background: linear-gradient(135deg, rgba(147, 51, 234, 0.25), rgba(168, 85, 247, 0.25));
+            border-color: rgba(147, 51, 234, 0.7);
+            color: rgb(196, 181, 253);
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.3);
+        }
+        .faixa-rapida.active span {
+            color: rgb(196, 181, 253) !important;
+        }
+    </style>
+
+    <script>
+        // URL da API - usa a origem atual (funciona com qualquer porta)
+        const API_URL = window.location.origin + '/api/produto';
+        
+        let produtos = [];
+        let produtosFiltrados = [];
+        let termoBusca = '';
+        let paginaAtual = 1;
+        const produtosPorPagina = 20;
+
+        // Função auxiliar para obter propriedade (case-insensitive)
+        function getProp(obj, prop) {
+            if (!obj || !prop) return undefined;
+            // Tenta primeiro com a propriedade exata
+            if (obj[prop] !== undefined) return obj[prop];
+            // Tenta com primeira letra maiúscula
+            const propCapitalized = prop.charAt(0).toUpperCase() + prop.slice(1);
+            if (obj[propCapitalized] !== undefined) return obj[propCapitalized];
+            // Tenta com tudo minúsculo
+            if (obj[prop.toLowerCase()] !== undefined) return obj[prop.toLowerCase()];
+            // Tenta com tudo maiúsculo
+            if (obj[prop.toUpperCase()] !== undefined) return obj[prop.toUpperCase()];
+            return undefined;
+        }
+
+        // Função para formatar preço
+        function formatarPreco(preco) {
+            if (preco === null || preco === undefined || isNaN(preco)) {
+                return 'R$ 0,00';
+            }
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(Number(preco));
+        }
+
+        // Função para determinar badge do produto
+        function obterBadge(produto) {
+            const estoque = Number(getProp(produto, 'estoque') || getProp(produto, 'Estoque') || 0);
+            const preco = Number(getProp(produto, 'preco') || getProp(produto, 'Preco') || 0);
+            
+            if (estoque === 0) {
+                return { texto: 'ESGOTADO', classe: 'bg-red-500 text-white' };
+            }
+            if (preco > 3000) {
+                return { texto: 'Destaque', classe: 'bg-purple-500 text-gray-900' };
+            }
+            if (preco < 200) {
+                return { texto: 'Frete Grátis', classe: 'bg-green-500 text-gray-900' };
+            }
+            return null;
+        }
+
+        // Função para identificar categoria do produto
+        function identificarCategoria(produto) {
+            const nome = (getProp(produto, 'nome') || getProp(produto, 'Nome') || '').toLowerCase();
+            const descricao = (getProp(produto, 'descricao') || getProp(produto, 'Descricao') || '').toLowerCase();
+            const texto = nome + ' ' + descricao;
+
+            if (texto.includes('teclado')) return 'teclado';
+            if (texto.includes('mouse')) return 'mouse';
+            if (texto.includes('monitor')) return 'monitor';
+            if (texto.includes('pc') || texto.includes('computador')) return 'pc';
+            if (texto.includes('headset') || texto.includes('fone')) return 'headset';
+            if (texto.includes('processador') || texto.includes('intel') || texto.includes('ryzen') || texto.includes('core i') || texto.includes('amd') || texto.includes('cpu')) return 'processador';
+            if (texto.includes('rtx') || texto.includes('rx ') || texto.includes('placa de vídeo') || texto.includes('geforce') || texto.includes('radeon') || texto.includes('gpu')) return 'gpu';
+            if (texto.includes('ram') || texto.includes('memória') || texto.includes('ddr4') || texto.includes('ddr5')) return 'ram';
+            if (texto.includes('ssd') || texto.includes('hd ') || texto.includes('armazenamento') || texto.includes('nvme')) return 'armazenamento';
+            if (texto.includes('placa-mãe') || texto.includes('motherboard') || texto.includes('b650') || texto.includes('z790') || texto.includes('placa mãe')) return 'placa-mae';
+            if (texto.includes('fonte')) return 'fonte';
+            if (texto.includes('gabinete')) return 'gabinete';
+            if (texto.includes('cooler') || texto.includes('water cooler')) return 'cooler';
+            if (texto.includes('ssd') || texto.includes('ram') || texto.includes('rtx') || texto.includes('placa')) return 'componente';
+            return 'outro';
+        }
+
+        // Função para renderizar produtos
+        function renderizarProdutos(produtosParaExibir) {
+            const grid = document.getElementById('gridProdutos');
+            const contador = document.getElementById('contadorProdutos');
+            
+            contador.textContent = produtosParaExibir.length;
+            
+            if (produtosParaExibir.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <p class="text-gray-400 text-lg mb-2">Nenhum produto encontrado.</p>
+                        <p class="text-gray-500 text-sm">Tente ajustar os filtros ou termo de busca.</p>
+                    </div>
+                `;
+                atualizarPaginacao(0);
+                return;
+            }
+
+            // Calcular produtos para a página atual
+            const inicio = (paginaAtual - 1) * produtosPorPagina;
+            const fim = inicio + produtosPorPagina;
+            const produtosPagina = produtosParaExibir.slice(inicio, fim);
+            const totalPaginas = Math.ceil(produtosParaExibir.length / produtosPorPagina);
+
+            // Atualizar paginação
+            atualizarPaginacao(totalPaginas);
+
+            grid.innerHTML = produtosPagina.map(produto => {
+                const id = getProp(produto, 'id') || getProp(produto, 'Id') || 0;
+                const nome = getProp(produto, 'nome') || getProp(produto, 'Nome') || '';
+                const descricao = getProp(produto, 'descricao') || getProp(produto, 'Descricao') || '';
+                const preco = Number(getProp(produto, 'preco') || getProp(produto, 'Preco') || 0);
+                const estoque = Number(getProp(produto, 'estoque') || getProp(produto, 'Estoque') || 0);
+                const urlImagem = getProp(produto, 'imagemUrl') || getProp(produto, 'ImagemUrl') || '/img/placeholder.png';
+                
+                const badge = obterBadge(produto);
+                const estaEsgotado = estoque === 0;
+                
+                return `
+                    <div class="bg-gray-800 rounded-xl overflow-hidden ${estaEsgotado ? '' : 'hover:shadow-2xl hover:shadow-purple-500/30 hover:scale-105 cursor-pointer'} transition-all duration-500 border border-gray-700 ${estaEsgotado ? '' : 'hover:border-purple-500/50'} group ${estaEsgotado ? 'relative' : ''}" onclick="${estaEsgotado ? '' : `window.location.href='ProdutoDetalhes.html?id=${id}'`}">
+                        <div class="relative overflow-hidden bg-gray-900/50 p-4">
+                            <img src="${urlImagem}" alt="${nome}" 
+                                 class="w-full h-48 object-contain ${estaEsgotado ? 'opacity-50' : 'group-hover:scale-110'} transition duration-500"
+                                 onerror="this.src='/img/placeholder.png'">
+                            ${badge ? `
+                                <span class="absolute top-2 right-2 ${badge.classe} text-xs font-bold px-3 py-1 rounded-full">
+                                    ${badge.texto}
+                                </span>
+                            ` : ''}
+                            ${estaEsgotado ? `
+                                <div class="absolute inset-0 bg-gray-900/80 flex items-center justify-center">
+                                    <span class="bg-red-500 text-white font-bold px-6 py-3 rounded-lg text-lg">
+                                        ESGOTADO
+                                    </span>
+                                </div>
+                            ` : ''}
+                        </div>
+                        <div class="p-5 ${estaEsgotado ? 'opacity-60' : ''}">
+                            <h3 class="font-bold text-lg text-gray-100 mb-2 line-clamp-2">${nome}</h3>
+                            <p class="text-gray-400 text-sm mb-3 line-clamp-2">${descricao}</p>
+                            <div class="flex items-baseline gap-2 mb-4">
+                                <span class="text-2xl font-bold ${estaEsgotado ? 'text-gray-500' : 'text-purple-400'}">
+                                    ${formatarPreco(preco)}
+                                </span>
+                            </div>
+                            <div class="flex gap-2" onclick="event.stopPropagation()">
+                                ${estaEsgotado ? `
+                                    <button disabled class="w-full bg-gray-700 text-gray-500 py-2 rounded-lg cursor-not-allowed">
+                                        Indisponível
+                                    </button>
+                                ` : `
+                                    <button onclick="event.stopPropagation(); window.location.href='ProdutoDetalhes.html?id=${id}'" class="flex-1 bg-purple-500 hover:bg-purple-600 text-gray-900 font-bold py-2 rounded-lg transition duration-300">
+                                        Ver Detalhes
+                                    </button>
+                                    <button onclick="event.stopPropagation(); adicionarCarrinho(${id})" class="bg-gray-700 hover:bg-gray-600 text-gray-100 px-4 py-2 rounded-lg transition duration-300">
+                                        🛒
+                                    </button>
+                                `}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Função para buscar produtos
+        function buscarProdutos(produtosParaBuscar, termo) {
+            if (!termo || termo.trim() === '') {
+                return produtosParaBuscar;
+            }
+
+            const termoLower = termo.toLowerCase().trim();
+            return produtosParaBuscar.filter(produto => {
+                const nome = (getProp(produto, 'nome') || getProp(produto, 'Nome') || '').toLowerCase();
+                const descricao = (getProp(produto, 'descricao') || getProp(produto, 'Descricao') || '').toLowerCase();
+                
+                // Busca mais exigente: busca em palavras-chave
+                const palavras = termoLower.split(' ').filter(p => p.length > 0);
+                return palavras.every(palavra => 
+                    nome.includes(palavra) || descricao.includes(palavra)
+                );
+            });
+        }
+
+        // Função para filtrar por preço
+        function filtrarPorPreco(produtosParaFiltrar, faixasPreco, precoMin, precoMax) {
+            let resultado = produtosParaFiltrar;
+
+            // Se há range definido (min ou max), usar apenas o range
+            const temRange = (precoMin !== null && precoMin !== undefined && precoMin > 0) || 
+                            (precoMax !== null && precoMax !== undefined && precoMax > 0);
+            
+            if (temRange) {
+                // Aplicar filtro de range
+                if (precoMin !== null && precoMin !== undefined && precoMin > 0) {
+                    resultado = resultado.filter(p => {
+                        const preco = Number(getProp(p, 'preco') || getProp(p, 'Preco') || 0);
+                        return preco >= precoMin;
+                    });
+                }
+                if (precoMax !== null && precoMax !== undefined && precoMax > 0) {
+                    resultado = resultado.filter(p => {
+                        const preco = Number(getProp(p, 'preco') || getProp(p, 'Preco') || 0);
+                        return preco <= precoMax;
+                    });
+                }
+            } else if (faixasPreco.length > 0) {
+                // Se não há range, usar faixas rápidas
+                resultado = resultado.filter(produto => {
+                    const preco = Number(getProp(produto, 'preco') || getProp(produto, 'Preco') || 0);
+                    return faixasPreco.some(faixa => {
+                        switch(faixa) {
+                            case '0-500':
+                                return preco <= 500;
+                            case '500-1000':
+                                return preco > 500 && preco <= 1000;
+                            case '1000-3000':
+                                return preco > 1000 && preco <= 3000;
+                            case '3000+':
+                                return preco > 3000;
+                            default:
+                                return true;
+                        }
+                    });
+                });
+            }
+
+            return resultado;
+        }
+
+        // Função para filtrar por estoque
+        function filtrarPorEstoque(produtosParaFiltrar, filtrosEstoque) {
+            if (filtrosEstoque.length === 0) {
+                return produtosParaFiltrar;
+            }
+
+            return produtosParaFiltrar.filter(produto => {
+                const estoque = Number(getProp(produto, 'estoque') || getProp(produto, 'Estoque') || 0);
+                const estaDisponivel = estoque > 0;
+                const estaEsgotado = estoque === 0;
+
+                if (filtrosEstoque.includes('disponivel') && filtrosEstoque.includes('esgotado')) {
+                    return true; // Mostrar todos
+                }
+                if (filtrosEstoque.includes('disponivel')) {
+                    return estaDisponivel;
+                }
+                if (filtrosEstoque.includes('esgotado')) {
+                    return estaEsgotado;
+                }
+                return true;
+            });
+        }
+
+        // Função para filtrar por categoria
+        function filtrarPorCategoria(produtosParaFiltrar, categorias) {
+            if (categorias.length === 0) {
+                return produtosParaFiltrar;
+            }
+
+            return produtosParaFiltrar.filter(produto => {
+                const categoria = identificarCategoria(produto);
+                return categorias.includes(categoria);
+            });
+        }
+
+        // Função para aplicar todos os filtros
+        function aplicarFiltros() {
+            let resultado = [...produtos];
+
+            // Busca
+            if (termoBusca) {
+                resultado = buscarProdutos(resultado, termoBusca);
+            }
+
+            // Filtro de preço (range e faixas rápidas)
+            const precoMinInput = document.getElementById('precoMin');
+            const precoMaxInput = document.getElementById('precoMax');
+            const precoMin = precoMinInput && precoMinInput.value ? parseFloat(precoMinInput.value) : null;
+            const precoMax = precoMaxInput && precoMaxInput.value ? parseFloat(precoMaxInput.value) : null;
+            const faixasRapidas = Array.from(document.querySelectorAll('.faixa-rapida.active')).map(btn => btn.dataset.faixa);
+            resultado = filtrarPorPreco(resultado, faixasRapidas, precoMin, precoMax);
+
+            // Filtro de estoque
+            const filtrosEstoque = Array.from(document.querySelectorAll('input[name="filtroEstoque"]:checked')).map(cb => cb.value);
+            resultado = filtrarPorEstoque(resultado, filtrosEstoque);
+
+            // Filtro de categoria
+            const filtrosCategoria = Array.from(document.querySelectorAll('input[name="filtroCategoria"]:checked')).map(cb => cb.value);
+            resultado = filtrarPorCategoria(resultado, filtrosCategoria);
+
+            // Ordenação
+            const ordenacao = document.getElementById('ordenacao').value;
+            resultado = ordenarProdutos(resultado, ordenacao);
+
+            produtosFiltrados = resultado;
+            paginaAtual = 1; // Resetar para primeira página ao aplicar filtros
+            renderizarProdutos(produtosFiltrados);
+        }
+
+        // Função para atualizar paginação
+        function atualizarPaginacao(totalPaginas) {
+            const paginacao = document.getElementById('paginacao');
+            if (!paginacao) return;
+
+            if (totalPaginas <= 1) {
+                paginacao.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            
+            // Botão Anterior
+            html += `
+                <button onclick="irParaPagina(${paginaAtual - 1})" 
+                        ${paginaAtual === 1 ? 'disabled' : ''}
+                        class="bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-lg transition border border-gray-700 ${paginaAtual === 1 ? 'opacity-50 cursor-not-allowed' : ''}">
+                    Anterior
+                </button>
+            `;
+
+            // Números das páginas
+            const maxBotoes = 5;
+            let inicio = Math.max(1, paginaAtual - Math.floor(maxBotoes / 2));
+            let fim = Math.min(totalPaginas, inicio + maxBotoes - 1);
+            
+            if (fim - inicio < maxBotoes - 1) {
+                inicio = Math.max(1, fim - maxBotoes + 1);
+            }
+
+            if (inicio > 1) {
+                html += `<button onclick="irParaPagina(1)" class="bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-lg transition border border-gray-700">1</button>`;
+                if (inicio > 2) {
+                    html += `<span class="text-gray-400 px-2">...</span>`;
+                }
+            }
+
+            for (let i = inicio; i <= fim; i++) {
+                html += `
+                    <button onclick="irParaPagina(${i})" 
+                            class="${i === paginaAtual ? 'bg-purple-500 text-gray-900' : 'bg-gray-800 hover:bg-gray-700 text-gray-300'} font-bold px-4 py-2 rounded-lg transition border border-gray-700">
+                        ${i}
+                    </button>
+                `;
+            }
+
+            if (fim < totalPaginas) {
+                if (fim < totalPaginas - 1) {
+                    html += `<span class="text-gray-400 px-2">...</span>`;
+                }
+                html += `<button onclick="irParaPagina(${totalPaginas})" class="bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-lg transition border border-gray-700">${totalPaginas}</button>`;
+            }
+
+            // Botão Próximo
+            html += `
+                <button onclick="irParaPagina(${paginaAtual + 1})" 
+                        ${paginaAtual === totalPaginas ? 'disabled' : ''}
+                        class="bg-gray-800 hover:bg-gray-700 text-gray-300 px-4 py-2 rounded-lg transition border border-gray-700 ${paginaAtual === totalPaginas ? 'opacity-50 cursor-not-allowed' : ''}">
+                    Próximo
+                </button>
+            `;
+
+            paginacao.innerHTML = html;
+        }
+
+        // Função para ir para uma página específica
+        function irParaPagina(pagina) {
+            const totalPaginas = Math.ceil(produtosFiltrados.length / produtosPorPagina);
+            if (pagina < 1 || pagina > totalPaginas) return;
+            
+            paginaAtual = pagina;
+            renderizarProdutos(produtosFiltrados);
+            
+            // Scroll para o topo do grid
+            document.getElementById('gridProdutos').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Função para ordenar produtos
+        function ordenarProdutos(produtosParaOrdenar, criterio) {
+            const produtosOrdenados = [...produtosParaOrdenar];
+            
+            switch(criterio) {
+                case 'menor':
+                    return produtosOrdenados.sort((a, b) => {
+                        const precoA = Number(getProp(a, 'preco') || getProp(a, 'Preco') || 0);
+                        const precoB = Number(getProp(b, 'preco') || getProp(b, 'Preco') || 0);
+                        return precoA - precoB;
+                    });
+                case 'maior':
+                    return produtosOrdenados.sort((a, b) => {
+                        const precoA = Number(getProp(a, 'preco') || getProp(a, 'Preco') || 0);
+                        const precoB = Number(getProp(b, 'preco') || getProp(b, 'Preco') || 0);
+                        return precoB - precoA;
+                    });
+                case 'relevantes':
+                default:
+                    return produtosOrdenados;
+            }
+        }
+
+        // Função para atualizar contadores dos filtros
+        function atualizarContadoresFiltros() {
+            // Contadores de preço (faixas rápidas)
+            const faixasPreco = ['0-500', '500-1000', '1000-3000', '3000+'];
+            faixasPreco.forEach(faixa => {
+                const count = produtos.filter(p => {
+                    const preco = Number(getProp(p, 'preco') || getProp(p, 'Preco') || 0);
+                    switch(faixa) {
+                        case '0-500': return preco <= 500;
+                        case '500-1000': return preco > 500 && preco <= 1000;
+                        case '1000-3000': return preco > 1000 && preco <= 3000;
+                        case '3000+': return preco > 3000;
+                        default: return false;
+                    }
+                }).length;
+                const element = document.getElementById(`count-${faixa}`);
+                if (element) element.textContent = count;
+            });
+
+            // Atualizar display de preço
+            const precos = produtos.map(p => Number(getProp(p, 'preco') || getProp(p, 'Preco') || 0));
+            const precoMinimo = precos.length > 0 ? Math.min(...precos) : 0;
+            const precoMaximo = precos.length > 0 ? Math.max(...precos) : 50000;
+            document.getElementById('precoMinDisplay').textContent = formatarPreco(precoMinimo);
+            document.getElementById('precoMaxDisplay').textContent = formatarPreco(precoMaximo);
+            document.getElementById('precoMin').placeholder = formatarPreco(precoMinimo);
+            document.getElementById('precoMax').placeholder = formatarPreco(precoMaximo);
+
+            // Contadores de categoria
+            const categorias = ['teclado', 'mouse', 'monitor', 'pc', 'headset', 'componente', 'processador', 'gpu', 'ram', 'armazenamento', 'placa-mae', 'fonte', 'gabinete', 'cooler'];
+            categorias.forEach(categoria => {
+                const count = produtos.filter(p => {
+                    const categoriaProduto = identificarCategoria(p);
+                    return categoriaProduto === categoria;
+                }).length;
+                const element = document.getElementById(`count-${categoria}`);
+                if (element) element.textContent = count;
+            });
+        }
+
+        // Função para carregar produtos da API
+        async function carregarProdutos() {
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const grid = document.getElementById('gridProdutos');
+            
+            loading.classList.remove('hidden');
+            error.classList.add('hidden');
+            grid.innerHTML = '';
+
+            try {
+                // Tentar múltiplas URLs possíveis (ordem de prioridade)
+                const urls = [
+                    window.location.origin + '/api/produto', // Primeiro tenta a origem atual
+                    API_URL, // Depois a URL configurada
+                    'http://localhost:5038/api/produto', // Porta padrão do Visual Studio
+                    'http://localhost:7233/api/produto', // Porta HTTPS do Visual Studio
+                    'http://localhost:8081/api/produto', // Porta do appsettings.json
+                    'http://localhost:5000/api/produto', // Porta alternativa
+                    '/api/produto' // URL relativa
+                ];
+
+                let response = null;
+                let lastError = null;
+                let urlFuncionando = null;
+
+                for (const url of urls) {
+                    try {
+                        response = await fetch(url, {
+                            method: 'GET',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            mode: 'cors',
+                            cache: 'no-cache'
+                        });
+                        
+                        if (response.ok) {
+                            urlFuncionando = url;
+                            break;
+                        }
+                    } catch (err) {
+                        lastError = err;
+                        continue;
+                    }
+                }
+
+                if (!response || !response.ok) {
+                    throw new Error(`Não foi possível conectar à API. Status: ${response?.status || 'N/A'}. Certifique-se de que a API está rodando no Visual Studio.`);
+                }
+                
+                produtos = await response.json();
+                
+                if (!Array.isArray(produtos)) {
+                    throw new Error('Resposta da API inválida. Esperado um array de produtos.');
+                }
+                
+                console.log(`✅ Produtos carregados com sucesso: ${produtos.length} produtos encontrados`);
+                if (urlFuncionando) {
+                    console.log(`✅ API funcionando em: ${urlFuncionando}`);
+                }
+                
+                // Debug: verificar estrutura dos produtos
+                if (produtos.length > 0) {
+                    console.log('📦 Primeiro produto (exemplo):', produtos[0]);
+                    console.log('📦 Propriedades do primeiro produto:', Object.keys(produtos[0]));
+                }
+                
+                atualizarContadoresFiltros();
+                aplicarFiltros();
+            } catch (err) {
+                console.error('❌ Erro ao carregar produtos:', err);
+                error.innerHTML = `
+                    <div class="text-center">
+                        <div class="mb-4">
+                            <svg class="w-16 h-16 text-red-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-red-400 text-lg mb-2 font-bold">Erro ao carregar produtos</p>
+                        <p class="text-gray-400 text-sm mb-2">${err.message}</p>
+                        <p class="text-gray-500 text-xs mb-4">Certifique-se de que a API está rodando no Visual Studio 2026 Insiders</p>
+                        <div class="space-y-2">
+                            <button onclick="carregarProdutos()" class="bg-purple-500 hover:bg-purple-600 text-gray-900 font-bold py-2 px-4 rounded-lg transition duration-300">
+                                🔄 Tentar Novamente
+                            </button>
+                            <p class="text-gray-500 text-xs mt-2">Verifique o console do navegador (F12) para mais detalhes</p>
+                        </div>
+                    </div>
+                `;
+                error.classList.remove('hidden');
+            } finally {
+                loading.classList.add('hidden');
+            }
+        }
+
+        // Função para adicionar ao carrinho
+        async function adicionarCarrinho(id) {
+            const produto = produtos.find(p => {
+                const produtoId = getProp(p, 'id') || getProp(p, 'Id') || 0;
+                return produtoId === id;
+            });
+            if (!produto) {
+                alert('Produto não encontrado!');
+                return;
+            }
+
+            try {
+                const API_CARRINHO = window.location.origin + '/api/carrinho';
+                const produtoDTO = {
+                    Id: getProp(produto, 'id') || getProp(produto, 'Id') || 0,
+                    Nome: getProp(produto, 'nome') || getProp(produto, 'Nome') || '',
+                    Preco: Number(getProp(produto, 'preco') || getProp(produto, 'Preco') || 0),
+                    Descricao: getProp(produto, 'descricao') || getProp(produto, 'Descricao') || '',
+                    Estoque: Number(getProp(produto, 'estoque') || getProp(produto, 'Estoque') || 0),
+                    ImagemUrl: getProp(produto, 'imagemUrl') || getProp(produto, 'ImagemUrl') || '',
+                    Quantidade: 1
+                };
+
+                const response = await fetch(API_CARRINHO, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(produtoDTO)
+                });
+
+                if (response.ok) {
+                    alert(`✅ Produto "${produto.Nome}" adicionado ao carrinho!`);
+                } else {
+                    const error = await response.json();
+                    alert(`Erro ao adicionar produto: ${error.mensagem || 'Erro desconhecido'}`);
+                }
+            } catch (err) {
+                console.error('Erro ao adicionar ao carrinho:', err);
+                alert('Erro ao adicionar produto ao carrinho. Tente novamente.');
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Busca
+            const campoBusca = document.getElementById('campoBusca');
+            const btnLimparBusca = document.getElementById('btnLimparBusca');
+
+            campoBusca.addEventListener('input', (e) => {
+                termoBusca = e.target.value;
+                if (termoBusca) {
+                    btnLimparBusca.classList.remove('hidden');
+                } else {
+                    btnLimparBusca.classList.add('hidden');
+                }
+                aplicarFiltros();
+            });
+
+            btnLimparBusca.addEventListener('click', () => {
+                campoBusca.value = '';
+                termoBusca = '';
+                btnLimparBusca.classList.add('hidden');
+                aplicarFiltros();
+            });
+
+            // Filtro de preço (range)
+            const precoMin = document.getElementById('precoMin');
+            const precoMax = document.getElementById('precoMax');
+            const precoMinDisplay = document.getElementById('precoMinDisplay');
+            const precoMaxDisplay = document.getElementById('precoMaxDisplay');
+            
+            let timeoutPreco;
+            if (precoMin && precoMax) {
+                [precoMin, precoMax].forEach(input => {
+                    input.addEventListener('input', (e) => {
+                        const valor = parseFloat(e.target.value) || 0;
+                        if (input === precoMin && precoMinDisplay) {
+                            precoMinDisplay.textContent = formatarPreco(valor);
+                        } else if (input === precoMax && precoMaxDisplay) {
+                            precoMaxDisplay.textContent = valor > 0 ? formatarPreco(valor) : 'R$ 50.000+';
+                        }
+                        
+                        clearTimeout(timeoutPreco);
+                        timeoutPreco = setTimeout(() => {
+                            aplicarFiltros();
+                        }, 500); // Debounce de 500ms
+                    });
+                });
+            }
+
+            // Faixas rápidas de preço
+            document.querySelectorAll('.faixa-rapida').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    btn.classList.toggle('active');
+                    aplicarFiltros();
+                });
+            });
+
+            // Filtros de estoque e categoria
+            document.querySelectorAll('input[name="filtroEstoque"], input[name="filtroCategoria"]').forEach(input => {
+                input.addEventListener('change', aplicarFiltros);
+            });
+
+            // Ordenação
+            document.getElementById('ordenacao').addEventListener('change', aplicarFiltros);
+
+            // Limpar filtros
+            document.getElementById('btnLimparFiltros').addEventListener('click', () => {
+                // Limpar checkboxes
+                document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                    if (cb.name === 'filtroEstoque' && cb.value === 'disponivel') {
+                        cb.checked = true;
+                    } else {
+                        cb.checked = false;
+                    }
+                });
+                
+                // Limpar campos de preço
+                const precoMinEl = document.getElementById('precoMin');
+                const precoMaxEl = document.getElementById('precoMax');
+                if (precoMinEl) precoMinEl.value = '';
+                if (precoMaxEl) precoMaxEl.value = '';
+                
+                // Limpar faixas rápidas
+                document.querySelectorAll('.faixa-rapida').forEach(btn => btn.classList.remove('active'));
+                
+                // Limpar busca
+                campoBusca.value = '';
+                termoBusca = '';
+                btnLimparBusca.classList.add('hidden');
+                
+                aplicarFiltros();
+            });
+
+            // Carregar produtos
+            carregarProdutos();
+        });
+    </script>
+
+    <!-- Script de Autenticação -->
+    <script src="js/auth.js"></script>
+
+</body>
+</html>
